@@ -3,11 +3,6 @@ import random
 
 
 class QLearningAgent:
-    """
-    A model-free Q-Learning / Double Q-Learning agent.
-    Uses optimistic initialization for initial exploration.
-    Epsilon (exploration rate) and Alpha (learning rate) are decayed externally.
-    """
 
     def __init__(
             self,
@@ -24,19 +19,14 @@ class QLearningAgent:
         self.n_states = int(n_states)
         self.n_actions = int(n_actions)
         self.gamma = float(gamma)
-
-        # Alpha and Epsilon will be updated by the training loop in main.py
         self.alpha = float(alpha)
         self.epsilon = float(epsilon)
-
         self.use_double_q = bool(use_double_q)
-
-        # Reproducibility
         self._rng = np.random.default_rng(seed)
         random.seed(seed)
         np.random.seed(seed)
 
-        # Initialize Q-tables with optimistic values
+
         if self.use_double_q:
             self.Q1 = np.full((self.n_states, self.n_actions),
                               float(optimistic_init), dtype=np.float32)
